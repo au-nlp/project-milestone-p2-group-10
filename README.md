@@ -13,6 +13,12 @@ This project explores how podcast conversations evolve over time by modeling the
 
 ## Proposed timeline
 
+|      Week      |            Milestone             |   Description   |
+| -------------- | -------------------------------- | --------------- |
+|  20/10 - 26/10 |  Setup and Data Familiarization  |  Content Cell   |
+|  27/10 - 02/11 |  Content Cell                    |  Content Cell   |
+|  03/11 - 07/11 |  Content Cell                    |  Content Cell   |
+
 ## Organization within the team
 
 ## Appendix
