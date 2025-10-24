@@ -1,8 +1,9 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/hgNAtOO3)
 
-# Title
+# Mapping the Narrative Journey: A Structural Analysis of Podcast Conversations
 
 ## Abstract
+This project explores how podcast conversations evolve over time by modeling their narrative journey. Rather than identifying static topics, we aim to capture the dynamic flow of discussion, that is how speakers transition between ideas, themes, and emotional tones throughout an episode. Using natural language processing techniques, we will segment transcripts into coherent topical units, assign interpretable topic labels, and represent their sequence as a directed graph. Visualizing this structure will reveal patterns of conversational movement, such as recurrent loops, digressions, or shifts in focus. Our analysis seeks to uncover how different podcast genres (e.g., interviews vs. storytelling formats) construct their narrative arcs, contributing both methodological insights and intuitive visual tools for studying long-form dialogue.
 
 ## Contributions
 
