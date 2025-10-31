@@ -14,6 +14,8 @@ This project explores how podcast conversations evolve over time by modeling the
 
 *Note: What is the contribution / novelty that you are aiming to produce?*
 
+The project's contribution is primarily analytical. We aim to provide new insights into conversational structures by comparing narrative journeys across different podcast genres (e.g., interviews vs. scripted narratives). The outcome will include a methodological framework and a set of visualizations for examining the narrative architecture of long-form dialogue.
+
 ## Proposed additional datasets (if any)
 
 *Note: List the additional dataset(s) you want to use (if any), and some ideas on how you expect to get, manage, process, and enrich it/them. Show us that you have read the docs and some examples, and that you have a clear idea on what to expect. Discuss data size and format if relevant. It is our responsibility to check that what we propose is feasible.*
@@ -22,11 +24,9 @@ This project explores how podcast conversations evolve over time by modeling the
 
 ## Proposed timeline
 
-|      Week      |            Milestone             |   Description   |
-| -------------- | -------------------------------- | --------------- |
-|  20/10 - 26/10 |  Content Cell                    |  Content Cell   |
-|  27/10 - 02/11 |  Content Cell                    |  Content Cell   |
-|  03/11 - 07/11 |  Content Cell                    |  Content Cell   |
+Week 43 -- Data exploration and initial segmentation experiements
+Week 44 -- Segmentation
+Week 45 -- Topic modeling, grahp construction, and visualization
 
 ## Organization within the team
 
