@@ -1,0 +1,11 @@
+numpy
+pandas
+matplotlib
+nltk
+sentence-transformers
+scikit-learn
+scipy
+bertopic
+networkx
+plotly
+datasets
