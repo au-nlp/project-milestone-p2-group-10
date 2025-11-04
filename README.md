@@ -40,8 +40,6 @@ By the P2 deadline, the segmentation and topic modeling components will be compl
 
 ## Organization within the team
 
-*Note: A list of internal milestones up until project Milestone P3*
-
 **Internal milestones**
 
 1. Adaptive segmentation and coherence evaluation completed by Milestone P2 (November 7).
