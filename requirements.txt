@@ -2,14 +2,14 @@ numpy
 pandas
 matplotlib
 nltk
-sentence-transformers
+bertopic==0.16.1
+sentence-transformers==2.5.1
 scikit-learn
 scipy
-bertopic
 networkx
 plotly
 datasets
 transformers
 sentencepiece
 torch
-huggingface_hub
+huggingface-hub<1.0
