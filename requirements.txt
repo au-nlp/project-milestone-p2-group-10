@@ -9,3 +9,7 @@ bertopic
 networkx
 plotly
 datasets
+transformers
+sentencepiece
+torch
+huggingface_hub
