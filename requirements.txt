@@ -1,0 +1,15 @@
+numpy
+pandas
+matplotlib
+nltk
+bertopic==0.16.1
+sentence-transformers==2.5.1
+scikit-learn
+scipy
+networkx
+plotly
+datasets
+transformers
+sentencepiece
+torch
+huggingface-hub<1.0
