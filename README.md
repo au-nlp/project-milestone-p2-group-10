@@ -18,17 +18,17 @@ We will use the **SPoRC (Spotify Podcast Corpus)** dataset provided in the cours
 
 Our analytical pipeline consists of four main stages: segmentation, topic modeling, graph construction, and visualization.
 
-In the **segmentation phase**, podcast transcripts will be divided into coherent topical segments based on semantic similarity between adjacent sentences. Sentence embeddings will be obtained using Sentence-BERT (“all-MiniLM-L6-v2”), and cosine similarity between consecutive embeddings will be used to detect topical boundaries. Two segmentation strategies will be explored: fixed threshold segmentation, where a similarity cutoff determines when a new topic begins, and adaptive segmentation, which detects boundaries using local minima in smoothed similarity curves. This process generates a set of coherent segments for each episode that reflect natural shifts in the conversation.
+In the **segmentation phase**, podcast transcripts will be divided into coherent topical segments based on similarity between two *blocks* of sentences (e.g., $`k=5`$ sentences *before* a gap vs. $`k=5`$ sentences *after*). It will find gaps where the "topic" of the preceding block is most different from the "topic" of the following block, then finds the deepest "valleys" in *that* graph. This is what we call `neuralTextTiling` algorithm. For the puropose of segmenting text into sentences or other semantic units, we used a transformer based model called SaT(Segment Any Text) from wtpsplit library.  Sentence embeddings are obtained using Sentence-BERT (“all-mpnet-base-v2”), and cosine similarity between consecutive embeddings will be used to detect topical boundaries. Three segmentation strategies will be explored: fixed threshold segmentation, where a similarity cutoff determines when a new topic begins, and adaptive segmentation, which detects boundaries using local minima in smoothed similarity curves. And finally our `neuralTextTiling` method which we decided to use for the project. 
 
 In the **topic modeling phase**, each segment will be assigned a topic label using BERTopic, which clusters embeddings and generates interpretable topic names. We will also experiment with alternatives such as FASTopic, which has been shown to improve topic coherence and computational efficiency. If time allows, we may also explore using large language models (LLMs) to refine or evaluate topic labels for interpretability and alignment with human perception.
 
-In the **graph construction phase**, we will represent the flow of conversation as a directed graph. Each node corresponds to a topic, and each edge represents a transition between topics within a given episode. Edge weights will indicate the frequency of transitions, allowing us to capture both dominant and peripheral topic flows. The graph will serve as a structured representation of the conversation’s narrative journey.
+In the **graph construction phase**, we will represent the flow of conversation as a directed graph using NetworkX (or similar). Each node corresponds to a topic, and each edge represents a transition between topics within a given episode. Edge weights will indicate the frequency of transitions, allowing us to capture both dominant and peripheral topic flows. The graph will serve as a structured representation of the conversation’s narrative journey.
 
-Finally, in the **visualization phase**, we will use NetworkX and Plotly to create interpretable topic-flow visualizations. These will include topic transition graphs and Sankey-style diagrams illustrating the progression and recurrence of topics. Graph metrics such as degree centrality and clustering will provide quantitative measures of narrative complexity. By comparing these patterns across podcast genres, we will identify stylistic and structural differences, for example, storytelling podcasts may follow more linear paths, while interview podcasts may display cyclical or branching topic flows.
+Finally, in the **visualization phase**, we will use Plotly to create interpretable topic-flow visualizations. These will include topic transition graphs and Sankey-style diagrams illustrating the progression and recurrence of topics. Graph metrics such as degree centrality and clustering will provide quantitative measures of narrative complexity. By comparing these patterns across podcast genres, we will identify stylistic and structural differences, for example, storytelling podcasts may follow more linear paths, while interview podcasts may display cyclical or branching topic flows.
 
 ### Feasibility and Data Handling
 
-The SPoRC dataset includes thousands of podcast episodes, each with transcripts ranging from a few hundred to several thousand tokens. Preliminary inspection confirms that the data can be processed efficiently using standard hardware. Preprocessing steps, such as tokenization, sentence segmentation, and embedding generation, will be implemented with <code>spaCy</code> and <code>sentence-transformers</code>. Missing or incomplete transcripts will be excluded, and intermediate representations (e.g., sentence embeddings) will be cached to optimize runtime and ensure reproducibility. These design choices make the project computationally feasible given the dataset’s size and structure.
+The SPoRC dataset includes thousands of podcast episodes, each with transcripts ranging from a few hundred to several thousand tokens. Preliminary inspection confirms that the data can be processed efficiently using standard hardware. Preprocessing steps, such as tokenization, sentence segmentation, and embedding generation, will be implemented with <code>wtpsplit</code> and <code>sentence-transformers</code>. Missing or incomplete transcripts will be excluded, and intermediate representations (e.g., sentence embeddings) will be cached to optimize runtime and ensure reproducibility. These design choices make the project computationally feasible given the dataset’s size and structure.
 
 ### Alternatives Considered
 
@@ -42,18 +42,22 @@ We initially considered fine-tuning a transformer-based model (e.g., DistilBERT)
 
 **Week 45**: Graph construction, visualization, and documentation.
 
-By the P2 deadline, the segmentation and topic modeling components will be complete and documented in the main notebook. The following phase will focus on in-depth analysis, visualization, and interpretation of results.
+By the P2 deadline, the segmentation will be complete and documented in the main notebook. The following phase will focus on topic labeling, in-depth analysis, visualization, and interpretation of results.
 
 ## Organization within the team
 
 **Internal milestones**
 
-1. Adaptive segmentation and coherence evaluation completed by Milestone P2 (November 7).
-2. Topic modeling and labeling completed.
-3. Graph analysis and genre comparison completed.
+1. document segmentation will be complete by Milestone P2 (November 7).
+2. Topic modeling and labeling by November 20
+3. Graph analysis and genre comparison by November 27
 4. Final project report and repository ready for Milestone P3 (December 19).
 
 ## Appendix
+
+**Question for the TA**
+
+- Although we used a chunk of code from this paper [**Unsupervised Topic Segmentation of Meetings with BERT Embeddings**](https://arxiv.org/abs/2106.12978) (*repo link is the main.ipynb*) for our segmentation method, we implemented enough ourselves to call this method our own. If this is your verdict as well, can our project be a Method Contribution as well? 
 
 **Repository Organization**
 * <code>README.md</code> - Project description and proposal.
