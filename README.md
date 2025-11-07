@@ -12,7 +12,7 @@ The contribution of this project is primarily analytical. We aim to provide new 
 
 ## Datasets
 
-We will use the **SPoRC (Spotify Podcast Corpus)** dataset provided in the course. It contains a large collection of podcast transcripts across multiple genres and formats, making it suitable for studying topic transitions and conversational structures. No additional datasets are planned at this stage.
+We will use the **SPoRC (Spotify Podcast Corpus)** dataset provided in the course. It contains a large collection of podcast transcripts across multiple genres and formats, making it suitable for studying topic transitions and conversational structures. The dataset includes thousands of episodes with diverse lengths and metadata such as podcast title, genre, and episode duration. No additional datasets are used.
 
 ## Methods
 
@@ -26,13 +26,21 @@ In the **graph construction phase**, we will represent the flow of conversation 
 
 Finally, in the **visualization phase**, we will use NetworkX and Plotly to create interpretable topic-flow visualizations. These will include topic transition graphs and Sankey-style diagrams illustrating the progression and recurrence of topics. Graph metrics such as degree centrality and clustering will provide quantitative measures of narrative complexity. By comparing these patterns across podcast genres, we will identify stylistic and structural differences, for example, storytelling podcasts may follow more linear paths, while interview podcasts may display cyclical or branching topic flows.
 
+### Feasibility and Data Handling
+
+The SPoRC dataset includes thousands of podcast episodes, each with transcripts ranging from a few hundred to several thousand tokens. Preliminary inspection confirms that the data can be processed efficiently using standard hardware. Preprocessing steps, such as tokenization, sentence segmentation, and embedding generation, will be implemented with <code>spaCy</code> and <code>sentence-transformers</code>. Missing or incomplete transcripts will be excluded, and intermediate representations (e.g., sentence embeddings) will be cached to optimize runtime and ensure reproducibility. These design choices make the project computationally feasible given the dataset’s size and structure.
+
+### Alternatives Considered
+
+We initially considered fine-tuning a transformer-based model (e.g., DistilBERT) for supervised topic classification. However, the lack of labeled data and the increased computational cost make this approach impractical for the current scope. An unsupervised strategy, combining segmentation and topic modeling, offers greater scalability and generalization across podcast genres while remaining interpretable.
+
 ## Proposed timeline
 
 **Week 43**: Data exploration and initial segmentation experiments.
 
-**Week 44**: Segmentation.
+**Week 44**: Segmentation refinement and topic modeling setup.
 
-**Week 45**: Topic modeling, graph construction, visualization, and documentation.
+**Week 45**: Graph construction, visualization, and documentation.
 
 By the P2 deadline, the segmentation and topic modeling components will be complete and documented in the main notebook. The following phase will focus on in-depth analysis, visualization, and interpretation of results.
 
@@ -48,6 +56,6 @@ By the P2 deadline, the segmentation and topic modeling components will be compl
 ## Appendix
 
 **Repository Organization**
-* README.md - Project description and proposal.
-* main.ipynb - Main analysis notebook containing the end-to-end pipeline.
-* requirements.txt - Requirements text-file.
+* <code>README.md</code> - Project description and proposal.
+* <code>main.ipynb</code> - Main analysis notebook containing the end-to-end pipeline.
+* <code>requirements.txt</code> - Python dependencies.
