@@ -28,11 +28,11 @@ Finally, in the **visualization phase**, we will use NetworkX and Plotly to crea
 
 ## Proposed timeline
 
-**Week 43**: Data exploration and initial segmentation experiments
+**Week 43**: Data exploration and initial segmentation experiments.
 
-**Week 44**: Segmentation
+**Week 44**: Segmentation.
 
-**Week 45**: Topic modeling, graph construction, visualization, and documentation
+**Week 45**: Topic modeling, graph construction, visualization, and documentation.
 
 By the P2 deadline, the segmentation and topic modeling components will be complete and documented in the main notebook. The following phase will focus on in-depth analysis, visualization, and interpretation of results.
 
@@ -50,3 +50,4 @@ By the P2 deadline, the segmentation and topic modeling components will be compl
 **Repository Organization**
 * README.md - Project description and proposal.
 * main.ipynb - Main analysis notebook containing the end-to-end pipeline.
+* requirements.txt - Requirements text-file.
