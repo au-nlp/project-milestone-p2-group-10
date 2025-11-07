@@ -10,9 +10,7 @@ This project explores how podcast conversations evolve over time by modeling the
 
 The contribution of this project is primarily analytical. We aim to provide new insights into conversational structures, comparing the narrative journeys across different podcast genres such as interviews, discussions, and scripted narratives. The project will include a methodological framework and a set of visualizations for examining the narrative architecture of long-form dialogue. Our approach goes beyond static topic modeling by focusing on transitions, capturing how meaning develops across turns in conversation. Through the combination of segmentation, topic modeling, and narrative graphing, we expect to uncover new patterns in how conversations flow and evolve, contributing to both computational methods and interpretive understanding. The work will result in a reproducible NLP pipeline that can be applied to other forms of long-form dialogue, and it will offer visual tools that make complex narrative dynamics intuitively understandable.
 
-## Proposed additional datasets (if any)
-
-*Note: List the additional dataset(s) you want to use (if any), and some ideas on how you expect to get, manage, process, and enrich it/them. Show us that you have read the docs and some examples, and that you have a clear idea on what to expect. Discuss data size and format if relevant. It is our responsibility to check that what we propose is feasible.*
+## Datasets
 
 We will use the **SPoRC (Spotify Podcast Corpus)** dataset provided in the course. It contains a large collection of podcast transcripts across multiple genres and formats, making it suitable for studying topic transitions and conversational structures. No additional datasets are planned at this stage.
 
@@ -34,7 +32,7 @@ Finally, in the **visualization phase**, we will use NetworkX and Plotly to crea
 
 **Week 44**: Segmentation
 
-**Week 45**: Topic modeling, graph construction, and visualization
+**Week 45**: Topic modeling, graph construction, visualization, and documentation
 
 By the P2 deadline, the segmentation and topic modeling components will be complete and documented in the main notebook. The following phase will focus on in-depth analysis, visualization, and interpretation of results.
 
