@@ -53,6 +53,14 @@ By the P2 deadline, the segmentation will be complete and documented in the main
 3. Graph analysis and genre comparison by November 27
 4. Final project report and repository ready for Milestone P3 (December 19).
 
+**Organization within the team**
+
+**Sadik**: Implementation of the full analytical pipeline, including final segmentation methods, topic modeling, graph construction, and visualization. 
+
+**Enok**: Contributed to topic modeling experiments, model refinement, and debugging.
+
+**Naja**: Conducted initial data exploration, early segmentation and visualization experiments, and documentation.
+
 ## Appendix
 
 **Question for the TA**
