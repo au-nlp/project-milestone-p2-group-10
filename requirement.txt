@@ -1,0 +1,14 @@
+bertopic
+umap-learn
+hdbscan
+sentence-transformers
+scikit-learn
+numpy
+pandas
+matplotlib
+scipy
+nltk
+wtpsplit
+networkx
+plotly
+openai
