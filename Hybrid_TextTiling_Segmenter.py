@@ -167,8 +167,8 @@ def find_topical_segments(
     print("\n--- 2. Calculating Embeddings ---")
     embs = embed_model.encode(
         sents, 
-        convert_to_tensor=True, 
-        show_progress_bar=True
+        convert_to_tensor=True 
+        # show_progress_bar=True
     )
 
     # --- Step 4: Run TextTiling Algorithm ---
@@ -183,11 +183,11 @@ def find_topical_segments(
     # 4c. Calculate "depth" of valleys
     depth_scores = depth_score(smooth_scores)
     
-    print(f"Calculated {len(sim_scores)} block similarity scores.")
-    print(f"Calculated {len(depth_scores)} depth scores.")
+    # print(f"Calculated {len(sim_scores)} block similarity scores.")
+    # print(f"Calculated {len(depth_scores)} depth scores.")
 
     # --- Step 5: Find Breakpoints (Thresholding) ---
-    print("\n--- 4. Finding Breakpoints ---")
+    #print("\n--- 4. Finding Breakpoints ---")
     
     # Find the peaks of the depth scores
     local_maxima_indices, local_maxima_values = get_local_maxima(depth_scores)
@@ -207,13 +207,13 @@ def find_topical_segments(
         if val > threshold
     ]
     
-    print(f"Found {len(local_maxima_indices)} potential breaks.")
-    print(f"Max depth score: {max(local_maxima_values):.4f}")
-    print(f"Calculated threshold: {threshold:.4f}")
-    print(f"Filtered down to {len(break_indices)} final breaks.")
+    # print(f"Found {len(local_maxima_indices)} potential breaks.")
+    # print(f"Max depth score: {max(local_maxima_values):.4f}")
+    # print(f"Calculated threshold: {threshold:.4f}")
+    # print(f"Filtered down to {len(break_indices)} final breaks.")
 
     # --- Step 6: Map indices and create segments ---
-    print("\n--- 5. Creating Final Segments ---")
+    print("\n--- 4. Creating Final Segments ---")
     
     # This maps the depth_score indices back to the original sentence indices.
     # A depth_score index 'idx' corresponds to a sim_score index 'idx+1'.
@@ -296,7 +296,7 @@ def plot_segmentation_scores(plot_data, k=5):
     ax2.legend()
     ax2.grid(True, linestyle=':')
 
-    plt.tight_layout(rect=[0, 0.03, 1, 0.95])
+    plt.tight_layout(rect=[0.0, 0.03, 1.0, 0.95])
     #plt.savefig("segmentation_plot.png")
     print("Plot saved to segmentation_plot.png")
     # To display the plot in a notebook, you might use plt.show()

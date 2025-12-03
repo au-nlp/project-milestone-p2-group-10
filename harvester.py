@@ -1,5 +1,6 @@
 import os
 import json
+import re
 import torch
 import numpy as np
 from sentence_transformers import SentenceTransformer
@@ -15,23 +16,23 @@ OUTPUT_DIR = "processed_vectors"
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 # How many episodes to test with?
-MAX_EPISODES_TO_PROCESS = 100
+MAX_EPISODES_TO_PROCESS = 500
 
 # --- 1. Load Models Once ---
 # print("Loading 'sat-12l-sm' (wtpsplit) and all-mpnet-base-v2 model...")
 # sat_model = SaT("sat-12l-sm")
 # embed_model = SentenceTransformer('sentence-transformers/all-mpnet-base-v2')
 
-try:
-    if torch.cuda.is_available():
-        print("CUDA available. Moving models to GPU.")
-        sat_model.to("cuda")
-        sat_model.half()
-        embed_model.to("cuda")
-    else:
-        print("Running on CPU.")
-except Exception as e:
-    print(f"GPU setup failed: {e}")
+# try:
+#     if torch.cuda.is_available():
+#         print("CUDA available. Moving models to GPU.")
+#         sat_model.to("cuda")
+#         sat_model.half()
+#         embed_model.to("cuda")
+#     else:
+#         print("Running on CPU.")
+# except Exception as e:
+#     print(f"GPU setup failed: {e}")
 
 # --- Helper: Dynamic K (Block Size) ---
 def get_dynamic_k(num_sentences):
@@ -44,10 +45,11 @@ def get_dynamic_k(num_sentences):
     else: return 15
 
 # --- 2. Streaming Processing Loop ---
-print("--- 2. Streaming Processing Loop ---")
+print("--- Streaming Processing Loop ---")
 print(f"Starting stream processing of: {JSONL_PATH}")
 
 episodes_processed = 0
+pattern = r"\[.*?\]"
 
 # Open the HUGE file in read mode. This does NOT load it into RAM.
 # 'encoding="utf-8"' is crucial for text data.
@@ -75,11 +77,14 @@ with open(JSONL_PATH, 'r', encoding='utf-8') as f:
             if not text or len(text) < 500:
                 continue
 
-            print(f"\nProcessing Episode {episodes_processed + 1} (ID: {episode_id})...")
+            print(f"\n ✅ Processing Episode {episodes_processed + 1} (ID: {episode_id})")
 
             # --- A. Pre-calculate Length for Dynamic K ---
             # We use sat_model to count sentences first
-            raw_sents = sat_model.split(text, do_paragraph_segmentation=False)
+
+            print("---- 1. Cleaning up with wtpsplit and regex ----")
+            raw_sents = re.sub(pattern," ", text)
+            raw_sents = sat_model.split(raw_sents, do_paragraph_segmentation=False)
             clean_sents = [s for s in raw_sents if len(s.split()) > 3]
             num_sents = len(clean_sents)
             
@@ -98,6 +103,7 @@ with open(JSONL_PATH, 'r', encoding='utf-8') as f:
                 k=k_size,
                 min_sentence_len=3,
                 smooth_passes=1,
+                smooth_window=1,
                 threshold_factor=0.5
             )
 
@@ -118,7 +124,7 @@ with open(JSONL_PATH, 'r', encoding='utf-8') as f:
             data_package = {
                 "episode_id": episode_id,
                 "vectors": segment_vectors,  # The math (for global clustering)
-                "text_snippets": [s[:100] + "..." for s in segments], # Preview
+                "text_snippets": segments, #[s[:100] + "..." for s in segments], # Preview
                 "segment_count": len(segments)
             }
             
