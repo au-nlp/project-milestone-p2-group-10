@@ -53,7 +53,7 @@ def calculate_segmentation_quality(segments, embed_model, sat_model, penalty_wei
     total_sentences = 0
     
     for segment in segments:
-        # --- CRITICAL FIX: Use wtpsplit for robust splitting ---
+        # --- Use wtpsplit for robust splitting ---
         # We use the model to find true sentence boundaries
         sents = sat_model.split(segment, do_paragraph_segmentation=False)
         
@@ -157,7 +157,7 @@ with open(JSONL_PATH, 'r', encoding='utf-8') as f:
                     print("  -> No segments found.")
                     continue
 
-                score = calculate_segmentation_quality(segments, embed_model, sat_model, penalty_weight=0.5)
+                score = calculate_segmentation_quality(segments, embed_model, sat_model, penalty_weight=0.2)
                                 # Check if winner
                 if score > best_score:
                     best_score = score
