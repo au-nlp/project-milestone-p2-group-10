@@ -12,13 +12,13 @@ The contribution of this project is primarily analytical. We aim to provide new 
 
 ## Datasets
 
-We will use the **SPoRC (Spotify Podcast Corpus)** dataset provided in the course. It contains a large collection of podcast transcripts across multiple genres and formats, making it suitable for studying topic transitions and conversational structures. The dataset includes thousands of episodes with diverse lengths and metadata such as podcast title, genre, and episode duration. No additional datasets are used.
+We use the **SPoRC (Spotify Podcast Corpus)** dataset provided in the course. It contains a large collection of podcast transcripts across multiple genres and formats, making it suitable for studying topic transitions and conversational structures. The dataset includes thousands of episodes with diverse lengths and metadata such as podcast title, genre, and episode duration. No additional datasets are used.
 
 ## Methods
 
 Our analytical pipeline consists of four main stages: segmentation, topic modeling, graph construction, and visualization.
 
-In the **segmentation phase**, podcast transcripts will be divided into coherent topical segments based on similarity between two *blocks* of sentences (e.g., $`k=5`$ sentences *before* a gap vs. $`k=5`$ sentences *after*). It will find gaps where the "topic" of the preceding block is most different from the "topic" of the following block, then finds the deepest "valleys" in *that* graph. This is what we call `neuralTextTiling` algorithm. For the puropose of segmenting text into sentences or other semantic units, we used a transformer based model called SaT(Segment Any Text) from wtpsplit library.  Sentence embeddings are obtained using Sentence-BERT (“all-mpnet-base-v2”), and cosine similarity between consecutive embeddings will be used to detect topical boundaries. Three segmentation strategies will be explored: fixed threshold segmentation, where a similarity cutoff determines when a new topic begins, and adaptive segmentation, which detects boundaries using local minima in smoothed similarity curves. And finally our `neuralTextTiling` method which we decided to use for the project. 
+In the **segmentation phase**, podcast transcripts will be divided into coherent topical segments based on similarity between two *blocks* of sentences (e.g., $`k=5`$ sentences *before* a gap vs. $`k=5`$ sentences *after*). It will find gaps where the "topic" of the preceding block is most different from the "topic" of the following block, then finds the deepest "valleys" in *that* graph. This is what we call `neuralTextTiling` algorithm. For the purpose of segmenting text into sentences or other semantic units, we used a transformer based model called SaT(Segment Any Text) from wtpsplit library.  Sentence embeddings are obtained using Sentence-BERT (“all-mpnet-base-v2”), and cosine similarity between consecutive embeddings will be used to detect topical boundaries. Three segmentation strategies will be explored: fixed threshold segmentation, where a similarity cutoff determines when a new topic begins, and adaptive segmentation, which detects boundaries using local minima in smoothed similarity curves. And finally our `neuralTextTiling` method which we decided to use for the project. 
 
 In the **topic modeling phase**, each segment will be assigned a topic label using BERTopic, which clusters embeddings and generates interpretable topic names. We will also experiment with alternatives such as FASTopic, which has been shown to improve topic coherence and computational efficiency. If time allows, we may also explore using large language models (LLMs) to refine or evaluate topic labels for interpretability and alignment with human perception.
 
@@ -34,6 +34,10 @@ The SPoRC dataset includes thousands of podcast episodes, each with transcripts 
 
 We initially considered fine-tuning a transformer-based model (e.g., DistilBERT) for supervised topic classification. However, the lack of labeled data and the increased computational cost make this approach impractical for the current scope. An unsupervised strategy, combining segmentation and topic modeling, offers greater scalability and generalization across podcast genres while remaining interpretable.
 
+## Updates Since Milestone P2
+
+- 
+
 ## Proposed timeline
 
 **Week 43**: Data exploration and initial segmentation experiments.
@@ -48,18 +52,18 @@ By the P2 deadline, the segmentation will be complete and documented in the main
 
 **Internal milestones**
 
-1. document segmentation will be complete by Milestone P2 (November 7).
+1. Document segmentation will be complete by Milestone P2 (November 7).
 2. Topic modeling and labeling by November 20
 3. Graph analysis and genre comparison by November 27
 4. Final project report and repository ready for Milestone P3 (December 19).
 
 **Organization within the team**
 
-**Sadik**: Implementation of the full analytical pipeline, including final segmentation methods, topic modeling, graph construction, and visualization. 
+**Sadik**: Implemented the analytical pipeline, including segmentation, topic modeling, graph construction, and visualization. Contributed to writing the report.
 
-**Enok**: Contributed to topic modeling experiments, model refinement, and debugging.
+**Enok**: Contributed to topic modeling experiments, model refinement, coding tasks, and writing the report.
 
-**Naja**: Conducted initial data exploration, early segmentation and visualization experiments, and documentation.
+**Naja**: Conducted initial data exploration, segmentation and visualization experiments, documentation, and writing the report.
 
 ## Appendix
 
@@ -68,6 +72,6 @@ By the P2 deadline, the segmentation will be complete and documented in the main
 - Although we used a chunk of code from this paper [**Unsupervised Topic Segmentation of Meetings with BERT Embeddings**](https://arxiv.org/abs/2106.12978) (*repo link is the main.ipynb*) for our segmentation method, we implemented enough ourselves to call this method our own. If this is your verdict as well, can our project be a Method Contribution as well? 
 
 **Repository Organization**
-* <code>README.md</code> - Project description and proposal.
+* <code>README.md</code> - Project description, contributions, and updates.
 * <code>main.ipynb</code> - Main analysis notebook containing the end-to-end pipeline.
 * <code>requirements.txt</code> - Python dependencies.
