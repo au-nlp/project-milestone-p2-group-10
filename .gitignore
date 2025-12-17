@@ -1,4 +1,5 @@
 Tmodel/
 processed_vectors/
 processed_vectors_sample500/
+processed_vectors_sampletest/
 episodeLevelDataSample.jsonl
