@@ -1,5 +1,12 @@
 Tmodel/
 processed_vectors/
 processed_vectors_sample500/
+processed_vectors_sample2_500/
 processed_vectors_sampletest/
+lib/
 episodeLevelDataSample.jsonl
+__pycache__/
+*.pyc
+grouped_education/
+grouped_health/
+grouped_religion/

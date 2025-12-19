@@ -13,7 +13,7 @@ from coherence_eval import calculate_segmentation_quality
 # --- Configuration ---
 # Path to your massive 25GB JSONL file
 JSONL_PATH = r"C:\Users\Sadik\Desktop\NLP Project\episodeLevelDataSample.jsonl"
-OUTPUT_DIR = "processed_vectors_sample500"
+OUTPUT_DIR = "processed_vectors_sample2_500"
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 # How many episodes to test with?
@@ -63,6 +63,9 @@ with open(JSONL_PATH, 'r', encoding='utf-8') as f:
             # Access the transcript (adjust key if your data uses something else)
             text = data.get("transcript", "")
             
+            #getting the datetime for dynamic topic modeling
+            episode_date = data.get("oldestEpisodeDate", None)
+
             # Use 'episode_id' if available, otherwise use line index
             episode_id = data.get("episode_id", f"episode_{line_idx}")
             
@@ -100,7 +103,7 @@ with open(JSONL_PATH, 'r', encoding='utf-8') as f:
                     k=k_size,
                     min_sentence_len=3,
                     smooth_passes=1,
-                    smooth_window=3,
+                    smooth_window=2,
                     threshold_factor=0.5
                 )
 
@@ -136,6 +139,7 @@ with open(JSONL_PATH, 'r', encoding='utf-8') as f:
             seg_len = len(best_segments)
             data_package = {
                 "episode_id": episode_id,
+                "timestamp": episode_date,
                 "vectors": segment_vectors,  # The math (for global clustering)
                 "text_snippets": best_segments, # entire segments
                 "segment_count": seg_len
