@@ -4,7 +4,7 @@
 
 ## Abstract
 
-This project explores how podcast conversations evolve over time by modeling their narrative journey. Rather than identifying static topics, we aim to capture the dynamic flow of discussion, that is, how speakers transition between ideas, and themes throughout an episode. The project builds on established natural language processing techniques, combining semantic segmentation, topic labeling, and graph-based modeling to map how podcast conversations unfold. Using NLP methods, we will segment transcripts into coherent topical units, assign interpretable topic labels, and represent their sequence as a directed graph. Visualizing this structure will reveal patterns of conversational movement, such as recurrent loops, digressions, or shifts in focus. Our analysis seeks to uncover how different podcast genres (e.g., interviews vs. storytelling formats) construct their narrative arcs, contributing both methodological insights and intuitive visual tools for studying long-form dialogue.
+This project explores how podcast conversations evolve over time by modeling their narrative journey. Rather than identifying static topics, we aim to capture the dynamic flow of discussion, that is, how speakers transition between ideas, and themes throughout an episode. The project builds on established natural language processing techniques, combining semantic segmentation, topic labeling, and graph-based modeling to map how podcast conversations unfold. Using NLP methods, we will segment transcripts into coherent topical units, assign interpretable topic labels, and represent their sequence as a directed graph. Visualizing this structure will reveal patterns of conversational movement, such as recurrent loops, digressions, or shifts in focus. Our analysis seeks to uncover how different podcast genres (e.g., interviews vs. storytelling formats) construct their narrative arcs, contributing both methodological insights and intuitive visual tools for studying the narrative architecture, semantic velocity, and temporal drift of long-form dialogue.
 
 ## Contributions
 
@@ -16,7 +16,9 @@ We use the **SPoRC (Spotify Podcast Corpus)** dataset provided in the course. It
 
 ## Methods
 
-Our analytical pipeline consists of four main stages: segmentation, topic modeling, graph construction, and visualization.
+Our analytical pipeline consists of six main stages: (1) semantic segmentation, (2) embedding-based
+topic labeling, (3) topic-transition graph modeling, (4) visualization of the narrative flow, (5) semantic
+velocity or pacing, and (6) temporal drift
 
 In the **segmentation phase**, podcast transcripts will be divided into coherent topical segments based on similarity between two *blocks* of sentences (e.g., $`k=5`$ sentences *before* a gap vs. $`k=5`$ sentences *after*). It will find gaps where the "topic" of the preceding block is most different from the "topic" of the following block, then finds the deepest "valleys" in *that* graph. This is what we call `neuralTextTiling` algorithm. For the purpose of segmenting text into sentences or other semantic units, we used a transformer based model called SaT(Segment Any Text) from wtpsplit library.  Sentence embeddings are obtained using Sentence-BERT (“all-mpnet-base-v2”), and cosine similarity between consecutive embeddings will be used to detect topical boundaries. Three segmentation strategies will be explored: fixed threshold segmentation, where a similarity cutoff determines when a new topic begins, and adaptive segmentation, which detects boundaries using local minima in smoothed similarity curves. And finally our `neuralTextTiling` method which we decided to use for the project. 
 
@@ -24,7 +26,13 @@ In the **topic modeling phase**, each segment will be assigned a topic label usi
 
 In the **graph construction phase**, we will represent the flow of conversation as a directed graph using NetworkX (or similar). Each node corresponds to a topic, and each edge represents a transition between topics within a given episode. Edge weights will indicate the frequency of transitions, allowing us to capture both dominant and peripheral topic flows. The graph will serve as a structured representation of the conversation’s narrative journey.
 
-Finally, in the **visualization phase**, we will use Plotly to create interpretable topic-flow visualizations. These will include topic transition graphs and Sankey-style diagrams illustrating the progression and recurrence of topics. Graph metrics such as degree centrality and clustering will provide quantitative measures of narrative complexity. By comparing these patterns across podcast genres, we will identify stylistic and structural differences, for example, storytelling podcasts may follow more linear paths, while interview podcasts may display cyclical or branching topic flows.
+In the **visualization phase**, we will use Plotly to create interpretable topic-flow visualizations. These will include topic transition graphs and Sankey-style diagrams illustrating the progression and recurrence of topics. Graph metrics such as degree centrality and clustering will provide quantitative measures of narrative complexity. By comparing these patterns across podcast genres, we will identify stylistic and structural differences, for example, storytelling podcasts may follow more linear paths, while interview podcasts may display cyclical or branching topic flows.
+
+And finally, the last two phases contribute directly to the statistical analysis of narrative dynamics.
+
+In **semantic velocity and pacing analysis**, we measure the speed and rhythm of information within a conversation or podcast. Instead of just looking at what is being said, it looks at how fast the topics are changing.
+In **temporal drift analysis**, we track how a genre evolves over several years by identifying its "center of gravity" for each year. By measuring the distance between these yearly centers, researchers can quantify how much a category has reinvented itself over time. Using visual mapping, they can identify "pivot years"—like the 2020 pandemic—where the focus of the content shifted drastically and stayed different.
+
 
 ### Feasibility and Data Handling
 
@@ -36,7 +44,7 @@ We initially considered fine-tuning a transformer-based model (e.g., DistilBERT)
 
 ## Updates Since Milestone P2
 
-- 
+- Added two new analysis methods to analyze the narrative dynamics of long-form conversation. 
 
 ## Proposed timeline
 
@@ -59,7 +67,7 @@ By the P2 deadline, the segmentation will be complete and documented in the main
 
 **Organization within the team**
 
-**Sadik**: Implemented the analytical pipeline, including segmentation, topic modeling, graph construction, and visualization. Contributed to writing the report.
+**Sadik**: Implemented the analytical pipeline, including segmentation, topic modeling, graph construction, visualization, and statistical analysis. Contributed to writing the report.
 
 **Enok**: Contributed to topic modeling experiments, model refinement, coding tasks, and writing the report.
 
