@@ -76,8 +76,6 @@ By the P2 deadline, the segmentation will be complete and documented in the main
 
 ## Appendix
 
-**Question for the TA**
-
 **Repository Organization**
 * <code>README.md</code> - Project description, contributions, and updates.
 * <code>main.ipynb</code> - Main analysis notebook containing the end-to-end pipeline.
