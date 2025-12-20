@@ -9,10 +9,11 @@ from wtpsplit import SaT
 # (Ensure Hybrid_TextTiling_Segmenter.py is in the same folder)
 from Hybrid_TextTiling_Segmenter import find_topical_segments, sat_model, embed_model # importing models from already loaded module
 from coherence_eval import calculate_segmentation_quality
+from preprocess_episode import preprocess_episode_transcript
 
 # --- Configuration ---
 # Path to your massive 25GB JSONL file
-JSONL_PATH = r"C:\Users\Sadik\Desktop\NLP Project\episodeLevelDataSample.jsonl"
+JSONL_PATH = r"./episodeLevelDataSample.jsonl"
 OUTPUT_DIR = "processed_vectors_sample2_500"
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
@@ -25,8 +26,6 @@ print("--- Streaming Processing Loop ---")
 print(f"Starting stream processing of: {JSONL_PATH}")
 
 episodes_processed = 0
-pattern = r"\[.*?\]"
-
 
 # Open the HUGE file in read mode. This does NOT load it into RAM.
 # 'encoding="utf-8"' is crucial for text data.
@@ -63,9 +62,7 @@ with open(JSONL_PATH, 'r', encoding='utf-8') as f:
             # We use sat_model to count sentences first
 
             print("---- 1. Cleaning up with wtpsplit and regex ----")
-            raw_sents = re.sub(pattern," ", text)
-            raw_sents = sat_model.split(raw_sents, do_paragraph_segmentation=False)
-            clean_sents = [s for s in raw_sents if len(s.split()) > 3]
+            clean_sents = preprocess_episode_transcript(text, sat_model)
             num_sents = len(clean_sents)
             
             
@@ -79,7 +76,7 @@ with open(JSONL_PATH, 'r', encoding='utf-8') as f:
 
             k_list = [3, 5, 7, 9, 11, 15]
 
-            # using complete search to find the optimal k 
+            # Using complete search to find the optimal k 
             for k_size in k_list:
 
                 segments, _ = find_topical_segments(
@@ -95,7 +92,7 @@ with open(JSONL_PATH, 'r', encoding='utf-8') as f:
                     print("  -> No segments found.")
                     continue
 
-                # customized segmentation quality evaluator
+                # Customized segmentation quality evaluator
                 score = calculate_segmentation_quality(segments, embed_model, sat_model, penalty_weight=0.2)
                 
                 # Check if winner
