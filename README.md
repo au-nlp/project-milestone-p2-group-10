@@ -31,6 +31,7 @@ In the **visualization phase**, we will use Plotly to create interpretable topic
 And finally, the last two phases contribute directly to the statistical analysis of narrative dynamics.
 
 In **semantic velocity and pacing analysis**, we measure the speed and rhythm of information within a conversation or podcast. Instead of just looking at what is being said, it looks at how fast the topics are changing.
+
 In **temporal drift analysis**, we track how a genre evolves over several years by identifying its "center of gravity" for each year. By measuring the distance between these yearly centers, researchers can quantify how much a category has reinvented itself over time. Using visual mapping, they can identify "pivot years"—like the 2020 pandemic—where the focus of the content shifted drastically and stayed different.
 
 
