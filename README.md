@@ -93,7 +93,7 @@ This project is organized into three main phases: **Data Processing**, **Modelin
 * **`group_by_cat.py`** A file management script that organizes processed `.npy` files into categorical folders (e.g., `grouped_health`, `grouped_education`) based on keywords found in the source dataset.
 
 ### 2. Topic Modeling & Graph Construction
-* **`marge_data.py`** *(Note: typo in filename, intended as `merge_data.py`)* Aggregates the individual `.npy` segment files into a single global dataset. It loads vectors, text snippets, and timestamps to prepare the data for the global BERTopic model.
+* **`merge_data.py`** Aggregates the individual `.npy` segment files into a single global dataset. It loads vectors, text snippets, and timestamps to prepare the data for the global BERTopic model.
 * **`topic_model.py`** Configures and trains the **BERTopic** pipeline. It utilizes UMAP for dimensionality reduction, HDBSCAN for clustering, and a CountVectorizer to generate topic representations.
 * **`custom_tokenizer.py`** A helper class utilizing `spacy` to improve topic labels. It extracts meaningful syntactic bigrams (e.g., "Adjective + Noun") rather than simple unigrams, resulting in more descriptive topic names.
 * **`zero_shot.py`** Defines a custom representation model for BERTopic using an LLM (via OpenAI API or local server). It generates human-readable, zero-shot titles for topics based on their keywords.
