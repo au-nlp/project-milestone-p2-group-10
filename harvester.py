@@ -19,22 +19,6 @@ os.makedirs(OUTPUT_DIR, exist_ok=True)
 # How many episodes to test with?
 MAX_EPISODES_TO_PROCESS = 500
 
-# --- 1. Load Models Once ---
-# print("Loading 'sat-12l-sm' (wtpsplit) and all-mpnet-base-v2 model...")
-# sat_model = SaT("sat-12l-sm")
-# embed_model = SentenceTransformer('sentence-transformers/all-mpnet-base-v2')
-
-# try:
-#     if torch.cuda.is_available():
-#         print("CUDA available. Moving models to GPU.")
-#         sat_model.to("cuda")
-#         sat_model.half()
-#         embed_model.to("cuda")
-#     else:
-#         print("Running on CPU.")
-# except Exception as e:
-#     print(f"GPU setup failed: {e}")
-
 
 # --- 2. Streaming Processing Loop ---
 print("--- Streaming Processing Loop ---")
@@ -139,7 +123,7 @@ with open(JSONL_PATH, 'r', encoding='utf-8') as f:
             seg_len = len(best_segments)
             data_package = {
                 "episode_id": episode_id,
-                "timestamp": episode_date,
+                "timestamp": episode_date,   # for dynamic modeling overtime
                 "vectors": segment_vectors,  # The math (for global clustering)
                 "text_snippets": best_segments, # entire segments
                 "segment_count": seg_len
