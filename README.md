@@ -45,7 +45,7 @@ We initially considered fine-tuning a transformer-based model (e.g., DistilBERT)
 
 ## Updates Since Milestone P2
 
-- Added two new analysis methods to analyze the narrative dynamics of long-form conversation. 
+- Added two new analysis methods to our pipeline to analyze the narrative dynamics of long-form conversation. 
 
 ## Proposed timeline
 
