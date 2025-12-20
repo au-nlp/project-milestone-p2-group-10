@@ -78,9 +78,32 @@ By the P2 deadline, the segmentation will be complete and documented in the main
 
 **Question for the TA**
 
-- Although we used a chunk of code from this paper [**Unsupervised Topic Segmentation of Meetings with BERT Embeddings**](https://arxiv.org/abs/2106.12978) (*repo link is the main.ipynb*) for our segmentation method, we implemented enough ourselves to call this method our own. If this is your verdict as well, can our project be a Method Contribution as well? 
-
 **Repository Organization**
 * <code>README.md</code> - Project description, contributions, and updates.
 * <code>main.ipynb</code> - Main analysis notebook containing the end-to-end pipeline.
 * <code>requirements.txt</code> - Python dependencies.
+
+## Script Descriptions
+
+This project is organized into three main phases: **Data Processing**, **Modeling**, and **Analysis & Visualization**. Below is a detailed breakdown of each script's role in the pipeline.
+
+### 1. Data Processing & Segmentation
+* **`harvester.py`** The main ETL driver for the project. It streams a large JSONL dataset, cleans the transcripts, and applies the hybrid segmentation algorithm to chunk episodes into coherent topics. It saves the output (embeddings, text snippets, and metadata) as `.npy` files for efficient loading.
+* **`Hybrid_TextTiling_Segmenter.py`** Implements the custom segmentation logic. It combines `wtpsplit` for robust sentence boundary detection with `SentenceTransformers` for semantic similarity, calculating "depth scores" to identify where topics shift within an episode.
+* **`preprocess_episode.py`** A cleaning utility that normalizes raw transcripts. It removes metadata tags (e.g., `[MUSIC]`, `(laughing)`), cleans up whitespace, and filters out non-speech artifacts before segmentation.
+* **`coherence_eval.py`** A quality control metric used to evaluate segmentation performance. It calculates a score based on **intra-segment similarity** (cohesion within a topic) minus **inter-segment similarity** (distinctiveness between topics), with a penalty for over-fragmentation.
+* **`group_by_cat.py`** A file management script that organizes processed `.npy` files into categorical folders (e.g., `grouped_health`, `grouped_education`) based on keywords found in the source dataset.
+
+### 2. Topic Modeling & Graph Construction
+* **`marge_data.py`** *(Note: typo in filename, intended as `merge_data.py`)* Aggregates the individual `.npy` segment files into a single global dataset. It loads vectors, text snippets, and timestamps to prepare the data for the global BERTopic model.
+* **`topic_model.py`** Configures and trains the **BERTopic** pipeline. It utilizes UMAP for dimensionality reduction, HDBSCAN for clustering, and a CountVectorizer to generate topic representations.
+* **`custom_tokenizer.py`** A helper class utilizing `spacy` to improve topic labels. It extracts meaningful syntactic bigrams (e.g., "Adjective + Noun") rather than simple unigrams, resulting in more descriptive topic names.
+* **`zero_shot.py`** Defines a custom representation model for BERTopic using an LLM (via OpenAI API or local server). It generates human-readable, zero-shot titles for topics based on their keywords.
+* **`graph_model.py`** Constructs a **NetworkX Directed Graph** from the topic timeline. It models the narrative flow by creating edges between sequential topics (e.g., how often "Topic A" transitions to "Topic B") and filters out noise.
+* **`cycle_breaker.py`** A graph refinement algorithm that converts the cyclic topic graph into a linear Directed Acyclic Graph (DAG). It iteratively detects cycles and breaks them by removing the weakest transition edge to reveal the dominant narrative flow.
+
+### 3. Analysis, Diagnostics & Visualization
+* **`semantic_velocity.py`** Analyzes the "pacing" of episodes. It calculates the semantic distance between consecutive segments to determine how fast the conversation moves, visualizing episodes on a "Speed vs. Stability" archetype map.
+* **`temp_drift.py`** Performs **Temporal Drift Analysis**. It computes the centroid of all topics for each year and uses PCA to visualize how the center of conversation has shifted in semantic space over time.
+* **`drift_diagnostics.py`** Provides the "why" behind temporal drift. It uses TF-IDF with custom stopwords to identify the specific keywords that were most distinctive for each year (e.g., identifying unique vocabulary drivers per era).
+* **`sankey_vis.py`** Generates a **Sankey Diagram** using `plotly`. This visualizes the structural flow of topics, showing the weight and direction of transitions between different conversation states.
